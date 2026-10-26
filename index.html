@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
+<meta name="theme-color" content="#05060f" />
+<meta name="description" content="NEON RUSH — a Blur-inspired arcade racer. Neon city, power-ups, drift-nitro combos, career mode." />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<title>NEON RUSH — Blur-style Arcade Racer</title>
+<link rel="manifest" href="./manifest.webmanifest" />
+<link rel="icon" href="./assets/icon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="./css/style.css" />
+<script type="importmap">
+{
+  "imports": {
+    "three": "./vendor/three/three.module.js",
+    "three/addons/": "./vendor/three/addons/"
+  }
+}
+</script>
+</head>
+<body>
+<div id="app">
+  <canvas id="gl"></canvas>
+
+  <!-- ================= HUD ================= -->
+  <div id="hud" class="hidden" aria-live="off">
+    <div class="hud-top">
+      <div class="hud-left">
+        <div class="panel pos-panel">
+          <div class="pos-label">POS</div>
+          <div class="pos-value"><span id="hud-pos">1</span><span class="pos-total">/<span id="hud-total">8</span></span></div>
+        </div>
+        <div class="panel lap-panel">
+          <div class="lap-row"><span class="k">LAP</span><span id="hud-lap">1/3</span></div>
+          <div class="lap-row"><span class="k">TIME</span><span id="hud-time">0:00.00</span></div>
+          <div class="lap-row"><span class="k">BEST</span><span id="hud-best">--:--.--</span></div>
+        </div>
+      </div>
+      <div class="hud-center">
+        <div id="hud-event"></div>
+        <div id="hud-toasts"></div>
+      </div>
+      <div class="hud-right">
+        <div class="panel combo-panel" id="combo-panel">
+          <div class="combo-mult">x<span id="hud-mult">1</span></div>
+          <div class="combo-label">DRIFT COMBO</div>
+          <div class="combo-score" id="hud-drift">0</div>
+        </div>
+        <div class="panel nemesis-panel hidden" id="nemesis-panel">
+          <span class="n-label">NEMESIS</span><span id="hud-nemesis">RIVAL</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hud-bottom">
+      <div class="hud-bl">
+        <div class="panel power-panel hidden" id="power-panel">
+          <div id="power-icon" class="power-icon">?</div>
+          <div class="power-meta"><div id="power-name">EMPTY</div><div class="power-count">x<span id="power-count">1</span></div></div>
+        </div>
+        <div class="panel nitro-panel">
+          <div class="nitro-label">NITRO</div>
+          <div class="nitro-track"><div id="nitro-fill" class="nitro-fill"></div><div id="nitro-gain" class="nitro-gain"></div></div>
+          <div class="nitro-segs" id="nitro-segs"></div>
+        </div>
+      </div>
+      <div class="hud-bc">
+        <canvas id="speedo" width="260" height="260"></canvas>
+        <div class="gear-line"><span id="hud-gear">N</span><span id="hud-rpm">0</span> RPM</div>
+      </div>
+      <div class="hud-br">
+        <div class="panel map-panel"><canvas id="minimap" width="200" height="200"></canvas></div>
+        <div class="btn-row">
+          <button class="icon-btn" id="btn-cam" title="Camera">CAM</button>
+          <button class="icon-btn" id="btn-pause" title="Pause">II</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="drift-popups"></div>
+    <div id="speedlines"></div>
+    <div id="hud-fps" class="fps"></div>
+    <div id="hud-countdown" class="countdown hidden"></div>
+    <div id="hud-boostflash" class="boostflash"></div>
+  </div>
+
+  <!-- ============== TOUCH CONTROLS ============== -->
+  <div id="touch" class="hidden">
+    <div id="stick-zone"><div id="stick-base"><div id="stick-knob"></div></div></div>
+    <div class="touch-right">
+      <button id="t-boost" class="tbtn boost">NITRO</button>
+      <button id="t-brake" class="tbtn brake">BRAKE</button>
+      <button id="t-drift" class="tbtn drift">DRIFT</button>
+      <button id="t-power" class="tbtn power">USE</button>
+    </div>
+  </div>
+
+  <!-- ================= MENUS ================= -->
+  <div id="menu">
+    <div id="loader" class="loader">
+      <div class="logo-lg"><span>NEON</span> RUSH</div>
+      <div class="loadbar"><div id="loadfill"></div></div>
+      <div id="loadtext">Booting engine…</div>
+    </div>
+    <div id="screens"></div>
+  </div>
+
+  <div id="overlay-fx"></div>
+</div>
+<script type="module" src="./js/boot.js"></script>
+</body>
+</html>
