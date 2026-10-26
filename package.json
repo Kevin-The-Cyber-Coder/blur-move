@@ -1,0 +1,10 @@
+{
+  "name": "blur-neon-rush",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node tools/serve.mjs",
+    "test": "node tools/logic-test.mjs && node tools/game-test.mjs"
+  }
+}
